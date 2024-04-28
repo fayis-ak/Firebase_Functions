@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102065608226",
+    "project_id": "fir-fuctions-5a619",
+    "storage_bucket": "fir-fuctions-5a619.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102065608226:android:9dc966361b905696125c7b",
+        "android_client_info": {
+          "package_name": "com.example.firebase_fuctions"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfAgyLyTX6pYtfv9YOrqhvpZps9NtJMkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
