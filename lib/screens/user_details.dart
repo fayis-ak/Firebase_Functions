@@ -169,13 +169,13 @@ class _UserDetailsState extends State<UserDetails> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('details: ' + ds["detail"]),
-                                      Text(ds['time'].toString())
+                                      // Text(ds['time'].toString())
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [Text(ds['date'].toString())],
-                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [Text(ds['date'].toString())],
+                                  // ),
                                   SizedBox(
                                     height: 20,
                                   ),

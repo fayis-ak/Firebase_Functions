@@ -24,12 +24,9 @@ class _PhoneAuthState extends State<PhoneAuth> {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '$selectedcountrycode${phoneController.text}',
         verificationCompleted: (PhoneAuthCredential credential) {
-          // This callback will be invoked in case of instant verification.
-          // You can directly sign in the user here.
           signInWithPhoneCredential(context, credential);
         },
         verificationFailed: (FirebaseAuthException e) {
-          // Handle verification failure
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Verification failed: ${e.message}'),
@@ -171,6 +168,42 @@ class _PhoneAuthState extends State<PhoneAuth> {
               )
             ],
           ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blue,
+        elevation: 0,
+        mini: true,
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        height: 60,
+        notchMargin: 5,
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.home),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.trolley),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.person),
+            ),
+          ],
         ),
       ),
     );

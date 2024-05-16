@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_fuctions/admin/adminhome.dart';
+import 'package:firebase_fuctions/firebase/adduser.dart';
+import 'package:firebase_fuctions/google/googel_home.dart';
+import 'package:firebase_fuctions/imagestorefirebase/image.dart';
 import 'package:firebase_fuctions/otp/phone.dart';
 import 'package:firebase_fuctions/auth/signup.dart';
 import 'package:firebase_fuctions/screens/user_details.dart';
@@ -9,6 +14,7 @@ import 'package:firebase_fuctions/utils/textform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../utils/container.dart';
 
@@ -20,6 +26,8 @@ class LogginScreen extends StatefulWidget {
 }
 
 class _LogginScreenState extends State<LogginScreen> {
+  final _auth = FirebaseAuth.instance;
+
   final formKey = GlobalKey<FormState>();
 
   TextEditingController emailController = TextEditingController();
@@ -85,6 +93,35 @@ class _LogginScreenState extends State<LogginScreen> {
             ),
           );
         }
+      }
+    }
+
+    signinwithgoogle() async {
+      try {
+        final GoogleSignInAccount? goggleUser = await GoogleSignIn().signIn();
+
+        final GoogleSignInAuthentication? googleAuth =
+            await goggleUser?.authentication;
+
+        AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+
+        UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+
+        // log('goggle user name ${userCredential.user?.displayName}');
+
+        if (userCredential.user != null) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GoggleHomeScren(),
+              ));
+        }
+      } on FirebaseException catch (e) {
+        log('goggle error $e');
       }
     }
 
@@ -223,14 +260,18 @@ class _LogginScreenState extends State<LogginScreen> {
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.call),
+                          // Icon(Icons.goggle),
                           SizedBox(
                             width: ResponsiveHelper.getWidth(context) * .080,
                           ),
                           SizedBox(
                             width: ResponsiveHelper.getWidth(context) * .010,
                           ),
-                          Text('Continue with google')
+                          InkWell(
+                              onTap: () async {
+                                await signinwithgoogle();
+                              },
+                              child: Text('Continue with google'))
                         ],
                       ),
                     ),
@@ -254,6 +295,29 @@ class _LogginScreenState extends State<LogginScreen> {
                             'signin',
                             style: TextStyle(color: Colors.blue),
                           )),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PhoneAuth(),
+                                ));
+                          },
+                          child: Text('[phone]')),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ImageStore(),
+                                ));
+                          },
+                          child: Text('image store')),
                     ],
                   )
                 ],

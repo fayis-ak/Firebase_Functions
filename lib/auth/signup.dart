@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
         Map<String, dynamic> empoyementInfoMap = {
           "Name": emailController.text,
           'uid': _authentication.currentUser!.uid,
-          'imageurl': imageUrl
+          // 'imageurl': imageUrl
         };
         await firebase().addusersignup(empoyementInfoMap, id);
         const snackBar = SnackBar(
@@ -63,9 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => UserDetails(
-                 
-              ),
+              builder: (context) => UserDetails(),
             ));
         setState(() {
           isloading = false;
@@ -260,10 +258,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       if (profileImage == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('please add profel')));
-                      } else {
-                        await uploadImage();
-                        regitration();
                       }
+                      await uploadImage();
+                      regitration();
                     }
                   },
                   child: isloading

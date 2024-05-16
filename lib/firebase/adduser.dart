@@ -8,7 +8,7 @@ class firebase {
 
   final _authentication = FirebaseAuth.instance;
 
-// add user
+// add user 
   Future addtodo(
     Map<String, dynamic> employeInfoMap,
   ) async {
@@ -27,7 +27,7 @@ class firebase {
         .doc(userid)
         .set(employeInfoMap);
   }
-
+  
   // fetch
   Future<Stream<QuerySnapshot>> getuser() async {
     String userId = _authentication.currentUser!.uid;
